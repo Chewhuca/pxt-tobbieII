@@ -15,7 +15,7 @@ namespace TobbieII {
     let PY: number = 0;
     let Force: number = 10;
     
-   function IR_sensorL(irdataL: number) {   //此為中斷觸發方塊
+    function IR_sensorL(irdataL: number) {   //Dies ist ein Interrupt-Trigger-Block
        control.inBackground(() => {
            let flag = false
            let last_flag = false
@@ -38,12 +38,12 @@ namespace TobbieII {
 
     }
 //    
-//    背景執行紅外線測距
+//    Infrarot-Entfernungsmessung im Hintergrund
 //    @param irdata_Set ; eg: 512
 //    
 //    //% blockId="IR_EVENTL" block="ON obstacles on the left: |%irdata_Set"
 //    //% irdata_Set.min=0 irdata_Set.max=1023
-//    //% blockGap=10 weight=99   //代表其重要性，越重放越高
+//    //% blockGap=10 weight=99   
 //    export function onIRL(irdata_Set: number = 512, handler: Action) {
 //       IR_sensorL(irdata_Set);
 //        control.onEvent(event_src_ir, event_ir_sensor, handler); 
@@ -72,7 +72,7 @@ namespace TobbieII {
     /** Read the value sensed by the right side of the infrared sensor.
     */
     //% blockId="Read_RBolck" block="get right IR data(return 0~1024)"
-    //% blockGap=5 weight=65                 //與下一個方塊的間隙及排重
+    //% blockGap=5 weight=65                 //Abstand zum nächsten Block und Gewichtsverteilung
     export function Read_RBlock() :number {
         basic.pause(100)
         ADL_R = pins.analogReadPin(AnalogPin.P2)
@@ -86,7 +86,7 @@ namespace TobbieII {
     /** Read the value sensed by the left side of the infrared sensor.
     */
     //% blockId="Read_LBolck" block="get left IR data(trtuen 0~1024)"
-    //% blockGap=15 weight=60                 //與下一個方塊的間隙及排重
+    //% blockGap=15 weight=60                 //Abstand zum nächsten Block und Gewichtsverteilung
     export function Read_LBlock() :number {
         basic.pause(100)
         ADL_L = pins.analogReadPin(AnalogPin.P1)
@@ -146,9 +146,8 @@ namespace TobbieII {
             return(false) 
         }     
     }
-    
-    
-    //輸出脈波
+
+    //Ausgangspuls
     //% blockId="IRbolck" block="Out pulse & show-04"
     //% blockGap=10 weight=55
     //export function IRblock() {
@@ -180,7 +179,7 @@ namespace TobbieII {
     //        led.unplot(4,0)
     //       }
         
-     //return(true)       
+    //return(true)       
     //}
     /**
     *Tobbie-II walks forward.
@@ -193,6 +192,7 @@ namespace TobbieII {
             pins.digitalWritePin(DigitalPin.P14, 0)
         }
     }
+    
     /**
     *Tobbie-II walks backward.
     */
@@ -212,7 +212,7 @@ namespace TobbieII {
     */
     //% blockId="stopwalk" block="Tobbie-II stop walking"
     //% blockGap=10 weight=33
-    export function stopwalk() {
+    export function stopWalk() {
         pins.digitalWritePin(DigitalPin.P13, 0)
         pins.digitalWritePin(DigitalPin.P14, 0)
     }
@@ -243,7 +243,7 @@ namespace TobbieII {
     */
     //% blockId="stopturn" block="Tobbie-II stops rotating."
     //% blockGap=10 weight=30
-    export function stopturn() {
+    export function stopTurn() {
         if (Motor_L || Motor_R) {
             if (Motor_R) { 
                 pins.digitalWritePin(DigitalPin.P15, 1)
@@ -271,14 +271,14 @@ namespace TobbieII {
     //% advanced=true
     export function vibrate(time:number) :void{
         for (let i = 0; i < time; i++){
-            pins.digitalWritePin(DigitalPin.P13, 1)  //向前
+            pins.digitalWritePin(DigitalPin.P13, 1)  //Weiter
             pins.digitalWritePin(DigitalPin.P14, 0)
             basic.pause(150)
-            pins.digitalWritePin(DigitalPin.P13, 0)  //向後
+            pins.digitalWritePin(DigitalPin.P13, 0)  //Zurück
             pins.digitalWritePin(DigitalPin.P14, 1)
             basic.pause(150)
         }
-        pins.digitalWritePin(DigitalPin.P13, 0)      //停止
+        pins.digitalWritePin(DigitalPin.P13, 0)      //Stopp
         pins.digitalWritePin(DigitalPin.P14, 0)
     }   
  /**
@@ -291,14 +291,14 @@ namespace TobbieII {
     //% advanced=true
     export function shake_head(time:number) :void{
         for (let i = 0; i < time; i++){
-            pins.digitalWritePin(DigitalPin.P15, 1)  //左轉
+            pins.digitalWritePin(DigitalPin.P15, 1)  //Nach links 
             pins.digitalWritePin(DigitalPin.P16, 0)
             basic.pause(250)
-            pins.digitalWritePin(DigitalPin.P15, 0)  //右轉
+            pins.digitalWritePin(DigitalPin.P15, 0)  //Nach rechts 
             pins.digitalWritePin(DigitalPin.P16, 1)
             basic.pause(250)
         }
-        pins.digitalWritePin(DigitalPin.P15, 0)      //停止行走
+        pins.digitalWritePin(DigitalPin.P15, 0)      //Stopp
         pins.digitalWritePin(DigitalPin.P16, 0)
     }      
 /**
@@ -334,7 +334,7 @@ namespace TobbieII {
     //% blockId="BLE_DOT" block="Tobbie II shows mood on face(APP only) %RX_Data"
     //% blockGap=5 weight=23
     //% advanced=true
-    export function drawface(RX_Data: string): void{
+    export function drawFace(RX_Data: string): void{
         basic.clearScreen()
         for (let PY = 0; PY <= 4; PY++) {
             let PLOT_DATA:number = parseInt(RX_Data.substr(PY * 2 + 1, 2))
