@@ -102,7 +102,7 @@ namespace TobbieII {
     *Determine if there are obstacles on the right side.
     *@param thresholdR ; eg: 512
     */
-    //% blockId="RBolck" block="is the right IR over %thresholdR strength"
+    //% blockId="RBlock" block="is the right IR over %thresholdR strength"
     //% thresholdR.min=0 thresholdR.max=1023
     //% blockGap=5 weight=58
     export function RBlock(thresholdR: number = 512 ) :boolean {
@@ -125,7 +125,7 @@ namespace TobbieII {
     *Determine if there are obstacles on the left side.
     *@param thresholdL ; eg: 512
     */
-    //% blockId="LBolck" block="is the left IR over %thresholdL strength"
+    //% blockId="LBlock" block="is the left IR over %thresholdL strength"
     //% thresholdL.min=0 thresholdL.max=1023
     //% blockGap=10 weight=57
     export function LBlock(thresholdL: number=512 ) :boolean {
